@@ -28,7 +28,7 @@ def get_args():
                         '--sep',
                         metavar='str',
                         type=str,
-                        default=',',
+                        default=', ',
                         help='A separator (default: , )')
 
     return parser.parse_args()
@@ -40,23 +40,14 @@ def main():
     args = get_args()
     things = args.things
     sep = args.sep
+    print(sep.join(things))
 
     faves = ''
     if len(things) == 1:
-        print(f'{things[0]}\nThis is one of my favorite things.')
+        print(f'This is one of my favorite things.')
+    else:
+        print('These are a few of my favorite things.'.format(faves))
 
-    elif len(things) == 2:
-        print(f'{things[0]}{sep} {things[1]}\nThese are a few of my favorite things.')
-
-#    else:
-#         print(
-
-
-#    faves = ''
-#    if len(things) == 1:
-#        print('{}\nThis is one of my favorite things.'.format(faves))
-
-#    if len(things) == 2:
 
 # --------------------------------------------------
 if __name__ == '__main__':
