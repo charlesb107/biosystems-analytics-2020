@@ -21,7 +21,7 @@ def get_args():
 
     parser.add_argument('day',
                         metavar='str',
-#                        nargs='+',
+                        nargs='+',
                         help='Days of the week')
 
     return parser.parse_args()
@@ -31,10 +31,9 @@ def get_args():
 def main():
 
     args = get_args()
-    day = args.day
 
 
-    days = {
+    todo = {
         'Monday' : 'On Mondays I never go to work',
         'Tuesday' : 'On Tuesdays I stay at home',
         'Wednesday' : 'On Wednesdays I never feel inclined',
@@ -43,10 +42,8 @@ def main():
         'Saturday' : "Oh, it's much too late on a Saturday",
         'Sunday' : 'And Sunday is the day of rest'}
 
-    if day in days:
-        print(days.get(day, days))
-    else:
-        print(f'Can\'t find "{day}"')
+    for day in args.day:
+        print(todo.get(day, f'Can\'t find "{day}"'))
 
 #---------------------------------------------------
 if __name__ == '__main__':
