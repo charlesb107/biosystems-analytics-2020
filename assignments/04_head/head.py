@@ -41,6 +41,9 @@ def get_args():
     if os.path.isfile(args.file):
         args.file=open(args.file).read().rstrip()
 
+    if args.int <= 0:
+        parser.error(f'--num "{args.int}" must be greater than 0')
+
     return parser.parse_args()
 
 
@@ -53,8 +56,8 @@ def main():
 
 
 
-    if args.int <= 0:
-        parser.error(f'--num "{args.int}" must be greater than 0')
+#    if args.int <= 0:
+#        parser.error(f'--num "{args.int}" must be greater than 0')
 
 
 
