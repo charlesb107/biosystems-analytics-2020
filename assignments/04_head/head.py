@@ -40,9 +40,6 @@ def get_args():
 # You might want to change these back to "args.text" if this isn't working
     if os.path.isfile(args.file):
         args.file=open(args.file).read().rstrip()
-        print(args.file)
-    else:
-        args.file = io.StringIO(args.file + '\n')
 
     return parser.parse_args()
 
