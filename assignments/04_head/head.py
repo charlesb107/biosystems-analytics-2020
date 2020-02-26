@@ -23,9 +23,7 @@ def get_args():
 
     parser.add_argument('file',
                         metavar='FILE',
-                        nargs='*',
                         type=argparse.FileType('r'),
-                        default=[sys.stdin],
                         help='Input file')
 
     parser.add_argument('-n',
@@ -37,15 +35,11 @@ def get_args():
 
     args = parser.parse_args()
 
-# You might want to change these back to "args.text" if this isn't working
-    if os.path.isfile(args.file):
-        args.file=open(args.file).read().rstrip()
-
     if args.int <= 0:
-        parser.error(f'--num "{args.int}" must be greater than 0')
+        print(f'--num "{args.int}" must be greater than 0')
 
-    return parser.parse_args()
-
+#    return parser.parse_args()
+    return args
 
 # --------------------------------------------------
 def main():
@@ -53,6 +47,8 @@ def main():
 
     args = get_args()
     file = args.file
+
+
 
 
 
