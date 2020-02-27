@@ -5,6 +5,7 @@ Date   : 2020-02-23
 Purpose: Rock the Casbah
 Reference: Tiny Python Projects (Book)/Biosystems Analytics (BE534), Spring 2020
 """
+from typing import Any
 
 import argparse
 import os
@@ -35,10 +36,9 @@ def get_args():
 
     args = parser.parse_args()
 
-    if args.int <= 0:
-        print(f'--num "{args.int}" must be greater than 0')
+    if args.num < 1:
+        parser.error(f'--num "{args.num}" must be greater than 0')
 
-#    return parser.parse_args()
     return args
 
 # --------------------------------------------------
@@ -46,17 +46,15 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    file = args.file
 
+    line_num=0
 
+    for line in args.file:
+        print(line, end='')
+        line_num += 1
 
-
-
-#    if args.int <= 0:
-#        parser.error(f'--num "{args.int}" must be greater than 0')
-
-
-
+        if line_num == args.num:
+            break
 
 
 # --------------------------------------------------
