@@ -65,11 +65,11 @@ def main():
                 diff_num += 1
         total_diff = len_diff + diff_num
 
-    if total_diff >= args.min:
+        #print(f'       {total_diff}:{w0}                 {w1}')
+        if total_diff >= args.min:
             print(f'       {total_diff}:{w0}                 {w1}')
 
 
-   # print(f'       {total_diff}:{w0}                 {w1}')
 
 ## Class Notes
 
