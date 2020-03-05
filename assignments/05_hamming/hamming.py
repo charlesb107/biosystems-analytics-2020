@@ -43,7 +43,6 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-#    int_arg = args.int
 
 
 # Attempt #?
@@ -54,8 +53,8 @@ def main():
         len_w0, len_w1 = len(line_list[0]), len(line_list[1])
         len_diff = abs(len_w0 - len_w1)
 
-        w0 = line_list[0]
-        w1 = line_list[1]
+        w0, w1 = line_list[0], line_list[1]
+        #w1 = line_list[1]
         zip_list = list(zip(w0, w1))
 
 
@@ -65,9 +64,10 @@ def main():
                 diff_num += 1
         total_diff = len_diff + diff_num
 
-        #print(f'       {total_diff}:{w0}                 {w1}')
-        if total_diff >= args.min:
-            print(f'       {total_diff}:{w0}                 {w1}')
+        print(f'{total_diff:8}:{w0:20}{w1:20}')
+
+    #if total_diff >= args.min:
+        #print(f'{total_diff:8}:{w0:20}{w1:20}')
 
 
 
