@@ -22,26 +22,17 @@ def get_args():
     parser.add_argument('file',
                         metavar='FILE',
                         type=argparse.FileType('r'),
+                        nargs='+',
                         help='Input file(s)')
-
 
     parser.add_argument('-o',
                         '--outdir',
                         help='Output directory',
                         metavar='DIR',
-                        type=dir,
-                        default='out',
-                        required=True)
+                        type=str,
+                        default='out')
 
     args = parser.parse_args()
-
-    base = os.path.basename(args.text)
-    out_dir = 'out'
-    os.path.join(out_dir, base)
-
-    # Makes an output directory if one doesn't exist
-    if not os.path.isdir(out_dir):
-        os.makedirs(out_dir)
 
     return parser.parse_args()
 
@@ -51,25 +42,28 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
+    out_dir = args.outdir
 
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
 
-
+    num_files, num_seqs = 0, 0
+# args.file is a bunch of open file handles
     for fh in args.file:
-        num_seq = 0
-        for line in fh:
-            num_seq += 1
-        for char in fh:
-            trans_seq = char.replace('T', 'U')
-
-
+        num_files += 1
         out_file = os.path.join(out_dir, os.path.basename(fh.name))
         out_fh = open(out_file, 'wt')
-        out_fh.write(trans_seq)
+
+# Here, DNA is equivalent to "line"
+        for dna in fh:
+            num_seqs += 1
+            out_fh.write(dna.rstrip().replace('T', 'U') + '\n')
+
         out_fh.close()
 
-
-    print(f'Done, wrote {num_lines} sequences in {num_file} to directory "{out_dir}.')
-
+    print(f'Done, wrote {num_seqs} '
+          f'sequence{"" if num_seqs == 1 else "s"} in {num_files} '
+          f'file{"" if num_files == 1 else "s"} to directory "{out_dir}".')
 
 # --------------------------------------------------
 if __name__ == '__main__':
