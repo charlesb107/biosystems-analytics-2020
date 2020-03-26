@@ -35,9 +35,10 @@ def get_args():
 
     args = parser.parse_args()
 
-    base = os.path.basename(args.file)
+    base = os.path.basename(args.text)
     out_dir = 'out'
     os.path.join(out_dir, base)
+    
     # Makes an output directory if one doesn't exist
     if not os.path.isdir(out_dir):
         os.makedirs(out_dir)
@@ -56,15 +57,13 @@ def main():
 
 
 
-
-
     for fh in args.file:
         num_seq = 0
         for line in fh:
             num_seq += 1
         for char in fh:
             trans_seq = char.replace('T', 'U')
-            print(trans_seq, end='')
+
 
         out_file = os.path.join(out_dir, os.path.basename(fh.name))
         out_fh = open(out_file, 'wt')
