@@ -79,23 +79,25 @@ def get_args():
 
     # if os.path.isfile(args.outfile):
     #     os.remove(args.outfile)
-
+    return args
 
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    # out_fh = args.outfile
+    out_fh = args.outfile
     random.seed(args.seed)
     pool = create_pool(args.pctgc, args.maxlen, args.seqtype)
 
 
     for i in range(1, args.numseqs):
+        out_file = os.path.join(os.path.basename(fh.name))
+        out_fh = open(out_file, 'wt')
         seq_len = random.choice(range(args.minlen, args.maxlen))
         seq = ''.join(random.sample(pool, seq_len))
         print(seq)
-        #args.outfile.write(seq)
+        #out_fh.write(seq)
 
     #args.outfile.close()
 
