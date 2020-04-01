@@ -80,6 +80,8 @@ def get_args():
     # if os.path.isfile(args.outfile):
     #     os.remove(args.outfile)
 
+    return args
+
 
 # --------------------------------------------------
 def main():
