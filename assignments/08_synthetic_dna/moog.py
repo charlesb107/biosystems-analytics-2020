@@ -102,7 +102,7 @@ def main():
 
     out_fh.close()
 
-    print(f'Done, wrote {args.numseqs} sequence{"" if args.numseqs == 1 else "s"} to "{args.outfile}"')
+    print(f'Done, wrote {args.numseqs} {args.seqtype.upper()} sequence{"" if args.numseqs == 1 else "s"} to "{args.outfile}".')
 
 # -------------------------------------------------
 def create_pool(pctgc, max_len, seq_type):
