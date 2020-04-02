@@ -87,14 +87,15 @@ def main():
     random.seed(args.seed)
     pool = create_pool(args.pctgc, args.maxlen, args.seqtype)
 
+    out_fh = open(out_file, 'wt')
+
     for i in range(1, args.numseqs+1):
         #out_file = os.path.join(os.path.basename(fh.name))
-        out_fh = open(out_file, 'wt')
         seq_len = random.choice(range(args.minlen, args.maxlen))
         seq = ''.join(random.sample(pool, seq_len))
         out_fh.write(seq + '\n')
 
-        # For quickly testing output, compare to outfile text
+        # For quickly testing output, compare to outfile contents
         #print(seq)
 
     out_fh.close()
