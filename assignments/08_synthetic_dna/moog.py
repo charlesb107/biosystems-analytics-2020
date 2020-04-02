@@ -71,14 +71,11 @@ def get_args():
                         type=int,
                         default=None)
 
-
     args = parser.parse_args()
 
     if not 0 < args.pctgc < 1:
         parser.error(f'--pctgc "{args.pctgc}" must be between 0 and 1')
 
-    # if os.path.isfile(args.outfile):
-    #     os.remove(args.outfile)
     return args
 
 # --------------------------------------------------
@@ -86,21 +83,21 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    out_fh = args.outfile
+    out_file = args.outfile
     random.seed(args.seed)
     pool = create_pool(args.pctgc, args.maxlen, args.seqtype)
 
-
-    for i in range(1, args.numseqs):
-        out_file = os.path.join(os.path.basename(fh.name))
+    for i in range(1, args.numseqs+1):
+        #out_file = os.path.join(os.path.basename(fh.name))
         out_fh = open(out_file, 'wt')
         seq_len = random.choice(range(args.minlen, args.maxlen))
         seq = ''.join(random.sample(pool, seq_len))
-        print(seq)
-        #out_fh.write(seq)
+        out_fh.write(seq + '\n')
 
-    #args.outfile.close()
+        # For quickly testing output, compare to outfile text
+        #print(seq)
 
+    out_fh.close()
 
     print(f'Done, wrote {args.numseqs} sequence{"" if args.numseqs == 1 else "s"} to "{args.outfile}"')
 
@@ -119,8 +116,6 @@ def create_pool(pctgc, max_len, seq_type):
         pool += random.choice(pool)
 
     return ''.join(sorted(pool))
-
-
 
 # --------------------------------------------------
 if __name__ == '__main__':
