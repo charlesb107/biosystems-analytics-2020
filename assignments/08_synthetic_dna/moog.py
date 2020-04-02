@@ -89,10 +89,12 @@ def main():
 
     out_fh = open(out_file, 'wt')
 
+    seq_id = 0
     for i in range(1, args.numseqs+1):
-        #out_file = os.path.join(os.path.basename(fh.name))
+        seq_id += 1
+        seq_id_form = f'>{seq_id} \n'
         seq_len = random.choice(range(args.minlen, args.maxlen))
-        seq = ''.join(random.sample(pool, seq_len))
+        seq = seq_id_form + ''.join(random.sample(pool, seq_len))
         out_fh.write(seq + '\n')
 
         # For quickly testing output, compare to outfile contents
