@@ -91,7 +91,7 @@ def main():
         out_fh.close()
 
 
-    print(f'Wrote {num_seq} sequence{"" if num_seq == 1 else "s"} from {file_num}'
+    print(f'Wrote {num_seq:,} sequence{"" if num_seq == 1 else "s"} from {file_num}'
            f' file{"" if file_num == 1 else "s"} to directory "{out_dir}"')
 
 
