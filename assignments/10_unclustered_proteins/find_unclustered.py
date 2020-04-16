@@ -21,31 +21,45 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
-
-    parser.add_argument('-p',
-                        '--proteins',
-                        help='Proteins FASTA',
-                        metavar='FILE',
-                        type=argparse.FileType('r'),
-                        default=None)
-
     parser.add_argument('-c',
                         '--cdhit',
                         help='Output file from CD-HIT (clustered proteins)',
                         metavar='cdhit',
-                        type=int,
-                        default=None)
+                        type=str,
+                        default=None,
+                        required=True)
+
+    parser.add_argument('-p',
+                        '--proteins',
+                        help='Proteins FASTA',
+                        metavar='proteins',
+                        #type=argparse.FileType('r'),
+                        type=str,
+                        default=None,
+                        required=True)
 
     parser.add_argument('-o',
                         '--outfile',
                         help='Output file',
-                        metavar='FILE',
+                        metavar='outfile',
                         #type=argparse.FileType('wt'),
                         default='unclustered.fa')
 
 
 
     args = parser.parse_args()
+
+    if args.proteins == None:
+       parser.error(f'the following arguments are required: -p / --proteins')
+
+    if args.cdhit == None:
+       parser.error(f'the following arguments are required: -c / --cdhit')
+
+    if not os.path.isfile(args.proteins):
+        parser.error(f"No such file or directory: '{args.proteins}'")
+
+    if not os.path.isfile(args.cdhit):
+        parser.error(f"No such file or directory: '{args.cdhit}'")
 
     return args
 
@@ -55,6 +69,7 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
+
 
     out_fh = open(out_file, 'wt')
 
@@ -73,8 +88,8 @@ def main():
             break
 
 
-    # plural = "" if unclust_total == 1 else 's'
-    # print(f'Wote {unclust_num} of {unclust_total} unclustered protein{plural} to "{args.outfile}"')
+    plural = "" if unclust_total == 1 else 's'
+    print(f'Wote {unclust_num} of {unclust_total} unclustered protein{plural} to "{args.outfile}"')
 
 
 # --------------------------------------------------
