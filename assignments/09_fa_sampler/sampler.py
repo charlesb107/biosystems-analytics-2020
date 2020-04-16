@@ -54,9 +54,6 @@ def get_args():
     if not 0 <= args.pct < 1:
         parser.error(f'--pct "{args.pct}" must be between 0 and 1')
 
-    # if os.path.isfile(args.file):
-    #     args.file = open(args.file).read().rstrip()
-
     return args
 
 # --------------------------------------------------
@@ -72,6 +69,7 @@ def main():
 
 
     file_num = 0
+    num_seq = 0
     for fh in args.file:
         file_num += 1
         basename = os.path.basename(fh.name)
@@ -81,7 +79,7 @@ def main():
 
 
         out_fh = open(out_file, 'wt')
-        num_seq = 0
+
         for rec in SeqIO.parse(fh, 'fasta'):
 
             if random.random() <= args.pct:
@@ -93,6 +91,22 @@ def main():
 
     print(f'Wrote {num_seq:,} sequence{"" if num_seq == 1 else "s"} from {file_num}'
            f' file{"" if file_num == 1 else "s"} to directory "{out_dir}"')
+
+# # IN-CLASS EXAMPLES
+#     if not os.path.isdir(out_dir):
+#         os.makedir(out_dir)
+#
+#     out_dir = args.outdir
+#
+#     for i, fh in enumerate(args.file, start=1):
+#         basename = os.path.basename(fh.name)
+#         out_file = os.path.join(out_dir, basename)
+#         out_fh = open(out_file, 'wt')
+#         print(f'{i:3}: {basename}')
+#
+#         for rec in SeqIO.parse(fh, 'fasta'):
+#             if random.random() <= args.pct:
+#             SeqIO.write(rec, out_fh, 'fasta')
 
 
 # --------------------------------------------------
