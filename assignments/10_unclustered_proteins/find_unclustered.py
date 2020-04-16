@@ -45,9 +45,7 @@ def get_args():
 
 
 
-    args = parser.parse_args()
-
-    return args
+    return parser.parse_args()
 
 # --------------------------------------------------
 def main():
@@ -72,6 +70,7 @@ def main():
         match = re.search('>(\d+)', line)
         if match: #Only prints matches
             prot_id = match.group(1)
+            clustered_ids.add(prot_id)
             #Sets the dict values to 1
             #clustered_ids[prot_id] = 1
 
@@ -92,37 +91,6 @@ def main():
 
 
     print(f'Wrote {num_written:,} of {num_total:,} unclustered proteins to "{args.outfile.name}"')
-
-
-
-
-
-
-
-
-
-    # out_fh = open(args.outfile, 'wt')
-
-    #for line in args.cdhit:
-        #print(line)
-        # match = re.search(r'>(\d+)', line)
-        # print(match)
-        # id = match.group(1)
-        # protein_ids = set()
-        # protein_ids.add(id)
-        # print(protein_ids)
-
-    # for rec in SeqIO.parse(args.proteins, 'fasta'):
-    #     protein_id = re.sub(r'\|.*', '', id)
-    #     if protein_id not in protein_ids:
-    #         SeqIO.write(rec, out_fh, 'fasta')
-    #     #print(rec)
-    #         break
-    #
-    #
-    # plural = "" if unclust_total == 1 else 's'
-    # print(f'Wote {unclust_num} of {unclust_total} unclustered protein{plural} to "{args.outfile}"')
-
 
 # --------------------------------------------------
 if __name__ == '__main__':
