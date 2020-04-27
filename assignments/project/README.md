@@ -25,10 +25,10 @@ For example, to find the sequences within a file "seqreads.fastq" that have a qu
 >`./qfilter.py seqreads.fastq -q .90`
 
 This will return:
->`"Done. 4 sequences had a quality of 90% or greater."`
->ID: diad_3479283749 = 94.3%
->ID: diad_3049384747 = 98.1%
->ID: diad_172398399 = 90.3%
+>`"Done. 4 sequences had a quality of 90% or greater."`\
+>ID: diad_3479283749 = 94.3%\
+>ID: diad_3049384747 = 98.1%\
+>ID: diad_172398399 = 90.3%\
 >ID: diad_120983753 = 92.9%
 
 &nbsp;
