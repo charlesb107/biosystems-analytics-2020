@@ -81,6 +81,8 @@ def main():
             if wanted_kw.intersection(keywords):
                 num_taken += 1
                 SeqIO.write(rec, args.outfile, 'fasta')
+            else:
+                num_skipped += 1
 
 
     print(f'Done, skipped {num_skipped} and took {num_taken}. See output in "{args.outfile.name}".')
