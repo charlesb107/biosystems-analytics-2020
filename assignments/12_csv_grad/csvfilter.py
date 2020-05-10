@@ -7,8 +7,11 @@ Purpose: Rock the Casbah
 
 import argparse
 import os
+import collections
 import sys
 import csv
+import re
+from pprint import pprint
 
 
 
@@ -29,13 +32,13 @@ def get_args():
                         required=True,
                         default=None)
 
-    # parser.add_argument('-v',
-    #                     '--val',
-    #                     help='Value for filter',
-    #                     metavar='val',
-    #                     type=str,
-    #                     required=True,
-    #                     default=None)
+    parser.add_argument('-v',
+                        '--val',
+                        help='Value for filter',
+                        metavar='val',
+                        type=str,
+                        required=True,
+                        default=None)
 
     parser.add_argument('-c',
                         '--col',
@@ -67,17 +70,33 @@ def main():
 
     args = get_args()
 
-    reader = csv.DictReader(args.file)
-    #, delimeter=args.delimiter)
+    reader1 = csv.DictReader(args.file, delimiter=args.delimiter)
+    reader2 = csv.reader(args.file, delimiter=args.delimiter)
+
+    writer = csv.DictWriter(args.outfile, fieldnames=reader1.fieldnames)
+    writer.writeheader()
+
+    search_for = '[' + args.val + ']'
 
     if args.col:
-        if args.col not in reader.fieldnames:
-            print(f'--col "{args.col}" not a valid column!')
+        if args.col not in reader1.fieldnames:
+            print(f'--col "{args.col}" not a valid column!', file=sys.stderr)
+            sys.exit(1)
 
-    # for row in reader:
-        #print(row)
+    val_num = 0
+    records = []
+    print(records)
+    for row in reader1:
+        records.append(row)
+    #      if re.search(search_for, , re.IGNORECASE):
+    #          val_num += 1
+    print(records)
+    # print(f'{val_num}')
 
 
+
+     #print(f'Done. wrote {num_match} to "{args.outfile}".')
+    #print('No crash')
 
 # --------------------------------------------------
 if __name__ == '__main__':
