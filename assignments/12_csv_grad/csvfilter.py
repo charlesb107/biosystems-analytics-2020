@@ -10,6 +10,8 @@ import os
 import collections
 import sys
 import csv
+###
+from collections import defaultdict
 import re
 from pprint import pprint
 
@@ -70,9 +72,9 @@ def main():
 
     args = get_args()
 
-    reader1 = csv.DictReader(args.file, delimiter=args.delimiter)
+    reader = csv.DictReader(args.file, delimiter=args.delimiter)
 
-    writer = csv.DictWriter(args.outfile, fieldnames=reader1.fieldnames)
+    writer = csv.DictWriter(args.outfile, fieldnames=reader.fieldnames)
     writer.writeheader()
 
     search_word = f'{args.val.lower()}'
@@ -80,25 +82,25 @@ def main():
 
 
     if args.col:
-        if args.col not in reader1.fieldnames:
+        if args.col not in reader.fieldnames:
             print(f'--col "{args.col}" not a valid column!', file=sys.stderr)
             sys.exit(1)
 
+        for row in reader:
+            col_val = row.get(args.col)
+            if re.search(args.val, col_val, re.IGNORECASE):
+                num_match += 1
+                writer.writerow(row)
 
-    for row in reader1:
-        low_row = dict((k.lower(), v.lower()) for k, v in row.items())
-        if re.search(search_word, f'{low_row.values()}'):
-            if args.col:
-                if low_row[f'{args.col.lower()}'] == search_word:
-                    num_match += 1
-                    writer.writerow(row)
-            else:
+
+    if not args.col:
+        for row in reader:
+            if re.search(args.val, f'{row.values()}', re.IGNORECASE):
                 num_match += 1
                 writer.writerow(row)
 
 
     print(f'Done, wrote {num_match} to "{args.outfile.name}".')
-    #print('No crash')
 
 # --------------------------------------------------
 if __name__ == '__main__':
