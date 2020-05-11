@@ -71,31 +71,33 @@ def main():
     args = get_args()
 
     reader1 = csv.DictReader(args.file, delimiter=args.delimiter)
-    reader2 = csv.reader(args.file, delimiter=args.delimiter)
 
     writer = csv.DictWriter(args.outfile, fieldnames=reader1.fieldnames)
     writer.writeheader()
 
-    search_for = '[' + args.val + ']'
+    search_word = f'{args.val.lower()}'
+    num_match = 0
+
 
     if args.col:
         if args.col not in reader1.fieldnames:
             print(f'--col "{args.col}" not a valid column!', file=sys.stderr)
             sys.exit(1)
 
-    val_num = 0
-    records = []
-    print(records)
+
     for row in reader1:
-        records.append(row)
-    #      if re.search(search_for, , re.IGNORECASE):
-    #          val_num += 1
-    print(records)
-    # print(f'{val_num}')
+        low_row = dict((k.lower(), v.lower()) for k, v in row.items())
+        if re.search(search_word, f'{low_row.values()}'):
+            if args.col:
+                if low_row[f'{args.col.lower()}'] == search_word:
+                    num_match += 1
+                    writer.writerow(row)
+            else:
+                num_match += 1
+                writer.writerow(row)
 
 
-
-     #print(f'Done. wrote {num_match} to "{args.outfile}".')
+    print(f'Done, wrote {num_match} to "{args.outfile.name}".')
     #print('No crash')
 
 # --------------------------------------------------
