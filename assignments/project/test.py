@@ -30,7 +30,7 @@ def test_small_input():
 
     qual_val_s = round(random.uniform(.85, .9), 2)
     num_reads_s = random.randint(100, 110)
-    qual_pct_s = round(qual_val_s * 100, 2)
+    qual_pct_s = (qual_val_s * 100)
 
     inp_small = 'HBR_Rep1_ERCC-Mix2_Build37-ErccTranscripts-chr22.read1.fastq'
     out_small = 'test_out_small.txt'
@@ -48,6 +48,9 @@ def test_file_exist_s():
 
     assert os.path.isfile(out_small)
 
+    if os.path.isfile(out_small):
+        os.remove(out_small)
+
 
 # --------------------------------------------------
 def test_large_input():
@@ -55,7 +58,7 @@ def test_large_input():
 
     qual_val_l = round(random.uniform(.3, .8), 2)
     num_reads_l = random.randint(25, 100)
-    qual_pct_l = round(qual_val_l * 100, 2)
+    qual_pct_l = (qual_val_l * 100)
 
     inp_large = 'SRR396636.sra_1.fastq'
     out_large = 'test_out_large.txt'
@@ -74,3 +77,6 @@ def test_file_exist_l():
     out_large = 'test_out_large.txt'
 
     assert os.path.isfile(out_large)
+
+    if os.path.isfile(out_large):
+        os.remove(out_large)
